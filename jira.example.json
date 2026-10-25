@@ -1,0 +1,10 @@
+{
+  "url": "https://your-company.atlassian.net/",
+  "selectors": {
+    "Auftraggeber": "REPLACE_WITH_CUSTOMER_TEXT_SELECTOR",
+    "Erwarteter Umsatz": "REPLACE_WITH_REVENUE_TEXT_SELECTOR",
+    "Zuschlagskriterien": "REPLACE_WITH_CRITERIA_TEXT_SELECTOR",
+    "Laufzeit": "REPLACE_WITH_DURATION_TEXT_SELECTOR",
+    "KAM": "REPLACE_WITH_KAM_TEXT_SELECTOR"
+  }
+}
