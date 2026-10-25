@@ -38,10 +38,15 @@ use a new output directory to repeat a run. Exit 0 means reports were generated,
 not that their contents were approved. Exit 1 means at least one file failed;
 other files still process. Keep these reports and spreadsheets private.
 
-Compare the report against the PDF. `Erwarteter Umsatz` intentionally starts
-empty: a procurement estimate, framework ceiling or awarded contract value is
-not automatically your expected revenue. Select and enter the business-approved
-figure manually. Missing values, unknown durations, multiple lots and references
+Compare the report against the PDF. `Erwarteter Umsatz` starts empty unless you explicitly select a reference
+category with `--financial-basis estimated`, `--financial-basis awarded` or
+`--financial-basis ceiling`. The script copies a figure only if the selected
+category has one distinct numeric amount and currency and there are no multiple
+lot/part identifiers. Conflicting or unpublished figures remain empty. The
+selected figure is a draft reference, not a revenue forecast: confirm or replace
+it with the business-approved figure before Jira transfer. The report retains
+the selected basis and source evidence. The terminal also displays all five
+fields and their review issues. Missing values, unknown durations, multiple lots and references
 to external award documents require review. Base duration and extension options
 are recorded separately. Page references identify the start of each section.
 The parser supports text PDFs of the supplied TED format; scans need OCR first.
@@ -86,6 +91,7 @@ options. Munich contains different procedure and lot estimates and a framework
 ceiling; these remain distinct candidates. LKA and Bruchsal contain awarded
 values, which remain labeled as such. Automated tests cover buyer versus supplier
 scope, financial versus weighting values, multiple durations, and Excel matching.
+Seven automated tests cover these behaviors, including financial reference selection.
 Actual KAM assignments and live Jira remain unverified without your mapping and
 project-specific configuration. No documents, customer spreadsheet or credentials
 are bundled in the repository.
@@ -105,3 +111,15 @@ Here `KAM` is a unit label, not a person's name or a Jira account ID.
 It can populate a suitable Jira text field; assignee/group selection requires
 configuration for your actual Jira form. Replace dummy assignments with verified
 ones in a separate private workbook before operational use.
+
+For the supplied LKA award notice, explicitly choose its awarded contract total:
+
+```sh
+python procurement.py prepare "2026-OJS202-00719016-de.pdf" \
+  --mapping examples/kam_mapping_dummy.xlsx \
+  --financial-basis awarded --output output/lka-demo
+```
+
+This prepares `277 850,75 EUR` as a draft reference and leaves a review warning.
+Award notices illustrate extraction; an already-awarded contract is not
+automatically a new sales opportunity.
