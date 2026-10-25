@@ -89,3 +89,19 @@ scope, financial versus weighting values, multiple durations, and Excel matching
 Actual KAM assignments and live Jira remain unverified without your mapping and
 project-specific configuration. No documents, customer spreadsheet or credentials
 are bundled in the repository.
+
+## Dummy KAM unit mapping
+
+`examples/kam_mapping_dummy.xlsx` maps the five supplied sample buyers to
+KAM BD, KAM SI, KAM DG and KAM FFO. All assignments are fictional test data.
+The active sheet has `Auftraggeber`, `KAM` and an informational `Hinweis` column.
+The KAM column includes a dropdown for the four units.
+
+```sh
+python procurement.py prepare "your-document.pdf" --mapping examples/kam_mapping_dummy.xlsx --output output/dummy-demo
+```
+
+Here `KAM` is a unit label, not a person's name or a Jira account ID.
+It can populate a suitable Jira text field; assignee/group selection requires
+configuration for your actual Jira form. Replace dummy assignments with verified
+ones in a separate private workbook before operational use.

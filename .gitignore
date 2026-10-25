@@ -3,3 +3,6 @@ __pycache__/
 output/
 *.xlsx
 jira.local.json
+
+# Public dummy fixture; real customer spreadsheets remain ignored.
+!examples/kam_mapping_dummy.xlsx
